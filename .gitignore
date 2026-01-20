@@ -1,0 +1,29 @@
+# Chỉ giữ lại README.md và các folder "bài tập chính"
+
+# Ignore tất cả các folder không cần thiết
+**/bài tập trong slide/
+**/Buổi khai giảng/
+**/Code bài giảng/
+**/code bài giảng/
+**/bài tập silde/
+**/câu lệnh rẽ nhánh/
+
+# Ignore file solution
+*.sln
+
+# Ignore build artifacts
+**/bin/
+**/obj/
+
+# Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore các file build
+*.exe
+*.dll
+*.pdb
+*.cache
