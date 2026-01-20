@@ -1,5 +1,8 @@
 # Chỉ giữ lại README.md và các folder "bài tập chính"
 
+# Ignore file PDF
+*.pdf
+
 # Ignore tất cả các folder không cần thiết
 **/bài tập trong slide/
 **/Buổi khai giảng/
