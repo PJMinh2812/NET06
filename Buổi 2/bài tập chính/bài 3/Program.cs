@@ -7,7 +7,9 @@ Hạ: Tháng 4, 5, 6
 Thu: Tháng 7, 8, 9
 Đông: Tháng 10, 11, 12
 */ 
-
+//input: số tháng (1-12)
+//process: kiểm tra số tháng để xác định mùa trong năm  
+//output: mùa tương ứng với số tháng đã nhập
 Console.Write("Nhập số tháng (1-12): ");
 int month = int.Parse(Console.ReadLine());
 string season;

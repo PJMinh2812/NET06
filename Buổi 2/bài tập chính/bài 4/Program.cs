@@ -8,6 +8,10 @@ Nếu từ 18 đến 27 tuổi → ✅ Đủ tuổi tham gia NVQS
 Nếu trên 27 tuổi → ⛔ Quá tuổi tham gia NVQS
 */ 
 
+//input: tuổi của công dân
+//process: kiểm tra tuổi để phân loại điều kiện tham gia nghĩa vụ quân sự   
+//output: kết quả phân loại điều kiện tham gia nghĩa vụ quân sự
+
 Console.Write("Nhập tuổi của công dân: ");
 int age = int.Parse(Console.ReadLine());    
 string result;

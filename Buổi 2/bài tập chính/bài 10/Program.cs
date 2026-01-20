@@ -8,6 +8,10 @@ Economy                     Ghế thường
 Business                    Ghế rộng
 First Class                 Ghế sang trọng
 */
+//input: loại vé (Economy, Business, First Class)
+//process: kiểm tra loại vé để hiển thị tiện ích đi kèm
+//output: tiện ích đi kèm loại vé đã chọn
+
 
 Console.Write("Nhập loại vé (Economy, Business, First Class): ");
 string ticketType = Console.ReadLine().ToLower();

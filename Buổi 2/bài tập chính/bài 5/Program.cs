@@ -7,6 +7,11 @@ là số nguyên tố.
 vào có phải là số nguyên tố hay không.
 */ 
 
+//input: một số nguyên
+//process: kiểm tra số nguyên đó có phải là số nguyên tố hay không
+//output: kết quả kiểm tra số nguyên tố
+
+
 Console.Write("Nhập một số nguyên: ");
 int number = int.Parse(Console.ReadLine());
 bool isPrime = true;

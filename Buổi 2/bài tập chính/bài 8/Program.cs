@@ -9,6 +9,9 @@ Từ km thứ 2 đến km thứ 5        8.000 VND/km
 Từ km thứ 6 trở đi              6.000 VND/km
 */ 
 
+//input: số km đã đi
+//process: kiểm tra số km đã đi để tính tiền cước taxi theo biểu giá
+//output: tổng tiền cước taxi
 
 Console.Write("Nhập số km đã đi: ");
 int distance = int.Parse(Console.ReadLine());

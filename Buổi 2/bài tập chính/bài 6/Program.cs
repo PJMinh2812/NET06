@@ -12,6 +12,10 @@ Trên 200 kWh                2.500
 
 */
 
+//input: số điện tiêu thụ trong tháng (kWh)
+//process: kiểm tra số điện tiêu thụ để tính tiền điện theo biểu giá
+//output: tổng tiền điện phải trả
+
 Console.Write("Nhập số điện tiêu thụ trong tháng (kWh): ");
 int consumption = int.Parse(Console.ReadLine());  
 

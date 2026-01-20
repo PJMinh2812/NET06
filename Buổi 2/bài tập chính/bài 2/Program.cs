@@ -9,6 +9,10 @@ Nếu thu nhập > 5 triệu và ≤ 10 triệu đồng → 💰 Thuế 10%
 Nếu thu nhập > 10 triệu đồng → 💸 Thuế 20%
 */ 
 
+
+//input: số tiền thu nhập hàng tháng
+//process: kiểm tra số tiền thu nhập để tính thuế theo quy định
+//output: số tiền thuế phải nộp
 Console.Write($"Nhập số tiền: ");
 double salary = double.Parse(Console.ReadLine());
 double total = 0;

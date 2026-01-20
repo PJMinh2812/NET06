@@ -6,7 +6,9 @@ Nếu ký tự là nguyên âm (a, e, i, o, u –
 không phân biệt hoa/thường) → in ra “✅ Là nguyên âm”
 Ngược lại → in “🔠 Là phụ âm”
 */
-
+// input: một ký tự
+// process: kiểm tra ký tự đó là nguyên âm hay phụ âm
+// output: kết quả phân loại ký tự
 Console.Write("Nhập một ký tự: ");
 char character = char.Parse(Console.ReadLine().ToLower());
 
