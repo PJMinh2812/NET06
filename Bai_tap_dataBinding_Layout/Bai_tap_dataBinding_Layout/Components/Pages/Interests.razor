@@ -1,0 +1,26 @@
+@page "/interests"
+
+<PageTitle>Interests</PageTitle>
+
+<section class="resume-section">
+    <h2 class="section-title">Interests</h2>
+
+    <p>
+        Apart from being a web developer, I enjoy most of my time being outdoors. In the winter, I am an avid skier
+        and novice ice climber. During the warmer months, I enjoy mountain biking, free climbing, and kayaking.
+    </p>
+    <p class="mb-4">
+        When forced indoors, I follow a number of sci-fi and fantasy genre movies and television shows,
+        and I spend a large amount of my free time exploring the latest technology advancements.
+    </p>
+
+    <label class="form-label fw-semibold">Your personal note (DataBinding)</label>
+    <textarea class="form-control mb-2" rows="3" @bind="userNote"></textarea>
+    <div class="alert alert-light border mb-0">
+        <strong>Preview:</strong> @userNote
+    </div>
+</section>
+
+@code {
+    private string userNote = "I love building responsive UI with Blazor.";
+}

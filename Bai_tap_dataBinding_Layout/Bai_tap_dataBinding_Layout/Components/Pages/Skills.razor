@@ -1,0 +1,54 @@
+@page "/skills"
+
+<PageTitle>Skills</PageTitle>
+
+<section class="resume-section">
+    <h2 class="section-title">Skills</h2>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Search skill (DataBinding)</label>
+            <input class="form-control" @bind="searchText" @bind:event="oninput" placeholder="Type to filter..." />
+        </div>
+        <div class="col-md-6 d-flex align-items-end">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="onlyStrong" @bind="onlyStrongSkills" />
+                <label class="form-check-label" for="onlyStrong">Show only skills >= 80%</label>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var item in FilteredSkills)
+    {
+        <article class="item-card">
+            <div class="d-flex justify-content-between">
+                <strong>@item.Name</strong>
+                <span class="text-primary-accent fw-bold">@item.Level%</span>
+            </div>
+            <div class="skill-bar mt-2">
+                <div class="skill-fill" style="width:@($"{item.Level}%")"></div>
+            </div>
+        </article>
+    }
+</section>
+
+@code {
+    private string searchText = string.Empty;
+    private bool onlyStrongSkills;
+
+    private readonly List<SkillItem> SkillItems =
+    [
+        new("HTML5", 95),
+        new("CSS3", 90),
+        new("JavaScript", 85),
+        new("Blazor", 88),
+        new("C#", 86),
+        new("SQL", 78)
+    ];
+
+    private IEnumerable<SkillItem> FilteredSkills => SkillItems
+        .Where(x => string.IsNullOrWhiteSpace(searchText) || x.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+        .Where(x => !onlyStrongSkills || x.Level >= 80);
+
+    private sealed record SkillItem(string Name, int Level);
+}

@@ -1,0 +1,32 @@
+@page "/experience"
+
+<PageTitle>Experience</PageTitle>
+
+<section class="resume-section">
+    <h2 class="section-title">Experience</h2>
+
+    @foreach (var item in Experiences)
+    {
+        <article class="item-card">
+            <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
+                <div>
+                    <h3 class="h4 mb-0">@item.Role</h3>
+                    <p class="subheading mb-0">@item.Company</p>
+                </div>
+                <span class="text-primary-accent fw-bold">@item.Duration</span>
+            </div>
+            <p class="mb-0">@item.Description</p>
+        </article>
+    }
+</section>
+
+@code {
+    private readonly List<ExperienceItem> Experiences =
+    [
+        new("Senior Web Developer", "Intelitec Solutions", "March 2013 - Present", "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal from generation X is on the runway."),
+        new("Web Developer", "Intelitec Solutions", "December 2011 - March 2013", "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps."),
+        new("Junior Web Designer", "Shout! Media Productions", "July 2010 - December 2011", "Podcasting operational change management inside of workflows to establish a framework and measurable performance indicators.")
+    ];
+
+    private sealed record ExperienceItem(string Role, string Company, string Duration, string Description);
+}

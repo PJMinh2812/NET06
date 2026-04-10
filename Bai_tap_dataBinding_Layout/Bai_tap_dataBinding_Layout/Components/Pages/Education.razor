@@ -1,0 +1,31 @@
+@page "/education"
+
+<PageTitle>Education</PageTitle>
+
+<section class="resume-section">
+    <h2 class="section-title">Education</h2>
+
+    @foreach (var item in Educations)
+    {
+        <article class="item-card">
+            <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
+                <div>
+                    <h3 class="h4 mb-0">@item.School</h3>
+                    <p class="subheading mb-0">@item.Degree</p>
+                </div>
+                <span class="text-primary-accent fw-bold">@item.Duration</span>
+            </div>
+            <p class="mb-0">GPA: @item.Gpa</p>
+        </article>
+    }
+</section>
+
+@code {
+    private readonly List<EducationItem> Educations =
+    [
+        new("University of Colorado Boulder", "Bachelor of Science - Computer Science", "August 2006 - May 2010", "3.45"),
+        new("James Buchanan High School", "Technology Magnet Program", "August 2002 - May 2006", "3.56")
+    ];
+
+    private sealed record EducationItem(string School, string Degree, string Duration, string Gpa);
+}

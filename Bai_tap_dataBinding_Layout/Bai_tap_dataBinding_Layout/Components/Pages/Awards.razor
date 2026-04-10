@@ -1,0 +1,28 @@
+@page "/awards"
+
+<PageTitle>Awards</PageTitle>
+
+<section class="resume-section">
+    <h2 class="section-title">Awards & Certifications</h2>
+
+    <ul class="list-group list-group-flush">
+        @foreach (var item in AwardItems)
+        {
+            <li class="list-group-item px-0 py-3 d-flex gap-2 align-items-start">
+                <i class="bi bi-trophy-fill text-primary-accent"></i>
+                <span>@item</span>
+            </li>
+        }
+    </ul>
+</section>
+
+@code {
+    private readonly List<string> AwardItems =
+    [
+        "Google Analytics Certified Developer",
+        "Mobile Web Specialist - Google Certification",
+        "1st Place - University of Colorado Boulder Emerging Tech Competition 2009",
+        "1st Place - University of Colorado Boulder Adobe Creative Jam 2008",
+        "2nd Place - University of Colorado Boulder Emerging Tech Competition 2008"
+    ];
+}
