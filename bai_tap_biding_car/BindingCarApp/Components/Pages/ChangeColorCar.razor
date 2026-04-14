@@ -1,0 +1,87 @@
+@page "/"
+@page "/change-color-car"
+@rendermode InteractiveServer
+
+<PageTitle>Change Color Car</PageTitle>
+
+<h1>Change color car</h1>
+
+<div class="car-layout">
+    <div class="car-preview">
+        <img src="@SelectedCar.ProductImage" alt="@SelectedCar.DisplayName" class="car-image" />
+    </div>
+
+    <div class="car-controls">
+        @foreach (var car in CarColors)
+        {
+            <button class="color-button"
+                    style="background-color:@car.ButtonColor;"
+                    @onclick="() => ChangeColor(car)">
+                @car.DisplayName
+            </button>
+        }
+    </div>
+</div>
+
+<div class="state-panel">
+    <h2>Databinding State</h2>
+
+    <div class="state-grid">
+        <label>
+            Ten khach hang (string)
+            <input @bind="CustomerName" class="form-control" />
+        </label>
+
+        <label>
+            So luong xe (number)
+            <input type="number" min="1" @bind="Quantity" class="form-control" />
+        </label>
+
+        <label class="checkbox-row">
+            <input type="checkbox" @bind="ShowDetail" />
+            Hien thi thong tin xe (boolean)
+        </label>
+    </div>
+
+    <p><strong>Khach hang:</strong> @CustomerName</p>
+    <p><strong>So luong:</strong> @Quantity</p>
+    <p><strong>Mau da chon (object):</strong> @SelectedCar.DisplayName</p>
+    <p><strong>Tong mau co san (array):</strong> @CarColors.Count</p>
+
+    @if (ShowDetail)
+    {
+        <div class="detail-card">
+            <img src="@SelectedCar.IconImage" alt="Icon @SelectedCar.DisplayName" class="car-icon" />
+            <div>
+                <p><strong>Model:</strong> Civic 2024</p>
+                <p><strong>Mau xe:</strong> @SelectedCar.DisplayName</p>
+                <p><strong>Tam tinh:</strong> @((Price * Quantity).ToString("N0")) VND</p>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private string CustomerName { get; set; } = "Nguyen Van A";
+    private bool ShowDetail { get; set; } = true;
+    private int Quantity { get; set; } = 1;
+    private decimal Price { get; set; } = 850_000_000;
+
+    private List<CarInfo> CarColors { get; } =
+    [
+        new("Red color", "#dc3545", "/CarBasic/products/red-car.jpg", "/CarBasic/icons/icon-red.jpg"),
+        new("Silver color", "#6c757d", "/CarBasic/products/silver-car.jpg", "/CarBasic/icons/icon-silver.jpg"),
+        new("Black color", "#111111", "/CarBasic/products/black-car.jpg", "/CarBasic/icons/icon-black.jpg"),
+        new("Steel color", "#475569", "/CarBasic/products/steel-car.jpg", "/CarBasic/icons/icon-steel.jpg")
+    ];
+
+    private CarInfo SelectedCar { get; set; } =
+        new("Black color", "#111111", "/CarBasic/products/black-car.jpg", "/CarBasic/icons/icon-black.jpg");
+
+    private void ChangeColor(CarInfo car)
+    {
+        SelectedCar = car;
+    }
+
+    private sealed record CarInfo(string DisplayName, string ButtonColor, string ProductImage, string IconImage);
+}

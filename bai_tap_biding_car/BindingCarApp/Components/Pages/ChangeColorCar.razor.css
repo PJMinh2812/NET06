@@ -1,0 +1,81 @@
+h1 {
+  margin-bottom: 1.25rem;
+}
+
+.car-layout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.car-preview {
+  width: min(520px, 100%);
+  background: #ececec;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.car-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.car-controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.color-button {
+  color: #fff;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+}
+
+.state-panel {
+  margin-top: 1.5rem;
+  border: 1px solid #d6d6d6;
+  border-radius: 10px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.8rem;
+}
+
+.detail-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem;
+  background: #f8fafc;
+}
+
+.car-icon {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+p {
+  margin-bottom: 0.45rem;
+}
