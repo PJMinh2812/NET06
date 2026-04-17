@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form And Validation Practice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise-layer" aria-hidden="true"></div>
+
+    <header class="hero">
+      <p class="eyebrow">Module 4</p>
+      <h1>Form And Validation</h1>
+      <p class="subtitle">
+        Customer contact form and course registration form with custom
+        JavaScript validation.
+      </p>
+    </header>
+
+    <main class="forms-grid">
+      <section class="card" aria-labelledby="contact-title">
+        <h2 id="contact-title">Customer Contact Form</h2>
+        <form id="contactForm" novalidate>
+          <div class="field">
+            <label for="contactName">Full Name <span>*</span></label>
+            <input
+              id="contactName"
+              name="fullName"
+              type="text"
+              placeholder="Enter your full name"
+            />
+            <small class="error" data-error-for="contactName"></small>
+          </div>
+
+          <div class="field">
+            <label for="contactEmail">Email <span>*</span></label>
+            <input
+              id="contactEmail"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+            />
+            <small class="error" data-error-for="contactEmail"></small>
+          </div>
+
+          <div class="field">
+            <label for="contactPhone">Phone Number <span>*</span></label>
+            <input
+              id="contactPhone"
+              name="phone"
+              type="text"
+              placeholder="Enter your phone number"
+            />
+            <small class="error" data-error-for="contactPhone"></small>
+          </div>
+
+          <div class="field">
+            <label for="contactAddress">Address</label>
+            <input
+              id="contactAddress"
+              name="address"
+              type="text"
+              placeholder="Enter your address"
+            />
+            <small class="error" data-error-for="contactAddress"></small>
+          </div>
+
+          <div class="field">
+            <label for="contactMessage">Message <span>*</span></label>
+            <textarea
+              id="contactMessage"
+              name="message"
+              rows="4"
+              placeholder="Enter your message"
+            ></textarea>
+            <small class="error" data-error-for="contactMessage"></small>
+          </div>
+
+          <div class="field">
+            <label for="contactService">Select Service <span>*</span></label>
+            <select id="contactService" name="service">
+              <option value="">Choose...</option>
+              <option value="website">Website Development</option>
+              <option value="marketing">Digital Marketing</option>
+              <option value="consulting">Business Consulting</option>
+            </select>
+            <small class="error" data-error-for="contactService"></small>
+          </div>
+
+          <div class="checkbox-row">
+            <input id="contactTerms" name="terms" type="checkbox" />
+            <label for="contactTerms"
+              >I agree to terms and conditions <span>*</span></label
+            >
+          </div>
+          <small class="error" data-error-for="contactTerms"></small>
+
+          <button type="submit" class="btn btn-primary">
+            Submit Contact Form
+          </button>
+          <p class="success" data-success-for="contactForm"></p>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="course-title">
+        <h2 id="course-title">Course Registration Form</h2>
+        <form id="courseForm" novalidate>
+          <div class="field">
+            <label for="courseName">Full Name <span>*</span></label>
+            <input
+              id="courseName"
+              name="fullName"
+              type="text"
+              placeholder="Enter your full name"
+            />
+            <small class="error" data-error-for="courseName"></small>
+          </div>
+
+          <div class="field">
+            <label for="courseEmail">Email <span>*</span></label>
+            <input
+              id="courseEmail"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+            />
+            <small class="error" data-error-for="courseEmail"></small>
+          </div>
+
+          <div class="field">
+            <label for="coursePhone">Phone Number <span>*</span></label>
+            <input
+              id="coursePhone"
+              name="phone"
+              type="text"
+              placeholder="Enter your phone number"
+            />
+            <small class="error" data-error-for="coursePhone"></small>
+          </div>
+
+          <div class="field">
+            <label for="courseSelect">Select Course <span>*</span></label>
+            <select id="courseSelect" name="course">
+              <option value="">Choose...</option>
+              <option value="frontend">Frontend Foundation</option>
+              <option value="backend">Backend With .NET</option>
+              <option value="fullstack">Fullstack Bootcamp</option>
+            </select>
+            <small class="error" data-error-for="courseSelect"></small>
+          </div>
+
+          <fieldset class="radio-group">
+            <legend>Study Mode <span>*</span></legend>
+            <label
+              ><input type="radio" name="studyMode" value="online" />
+              Online</label
+            >
+            <label
+              ><input type="radio" name="studyMode" value="offline" />
+              Offline</label
+            >
+            <small class="error" data-error-for="studyMode"></small>
+          </fieldset>
+
+          <div class="field">
+            <label for="courseDate">Preferred Start Date <span>*</span></label>
+            <input id="courseDate" name="startDate" type="date" />
+            <small class="error" data-error-for="courseDate"></small>
+          </div>
+
+          <div class="field">
+            <label for="courseNotes">Comments Or Notes</label>
+            <textarea
+              id="courseNotes"
+              name="notes"
+              rows="4"
+              placeholder="Optional"
+            ></textarea>
+            <small class="error" data-error-for="courseNotes"></small>
+          </div>
+
+          <div class="checkbox-row">
+            <input id="courseTerms" name="terms" type="checkbox" />
+            <label for="courseTerms"
+              >I agree to terms and conditions <span>*</span></label
+            >
+          </div>
+          <small class="error" data-error-for="courseTerms"></small>
+
+          <button type="submit" class="btn btn-accent">Register</button>
+          <p class="success" data-success-for="courseForm"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

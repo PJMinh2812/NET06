@@ -1,0 +1,240 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Form And Validation</PageTitle>
+
+<section class="hero">
+	<p class="eyebrow">Module 4</p>
+	<h1>Form And Validation</h1>
+	<p class="subtitle">Bai tap Blazor Server voi Customer Contact Form va Course Registration Form.</p>
+</section>
+
+<section class="forms-grid">
+	<article class="form-card">
+		<h2>Customer Contact Form</h2>
+
+		<EditForm Model="contactModel" OnValidSubmit="SubmitContactForm">
+			<DataAnnotationsValidator />
+
+			<div class="field">
+				<label for="contactName">Full Name <span>*</span></label>
+				<InputText id="contactName" class="form-control" @bind-Value="contactModel.FullName" />
+				<ValidationMessage For="() => contactModel.FullName" />
+			</div>
+
+			<div class="field">
+				<label for="contactEmail">Email <span>*</span></label>
+				<InputText id="contactEmail" class="form-control" @bind-Value="contactModel.Email" />
+				<ValidationMessage For="() => contactModel.Email" />
+			</div>
+
+			<div class="field">
+				<label for="contactPhone">Phone Number <span>*</span></label>
+				<InputText id="contactPhone" class="form-control" @bind-Value="contactModel.PhoneNumber" />
+				<ValidationMessage For="() => contactModel.PhoneNumber" />
+			</div>
+
+			<div class="field">
+				<label for="contactAddress">Address</label>
+				<InputText id="contactAddress" class="form-control" @bind-Value="contactModel.Address" />
+				<ValidationMessage For="() => contactModel.Address" />
+			</div>
+
+			<div class="field">
+				<label for="contactMessage">Message <span>*</span></label>
+				<InputTextArea id="contactMessage" class="form-control" @bind-Value="contactModel.Message" rows="4" />
+				<ValidationMessage For="() => contactModel.Message" />
+			</div>
+
+			<div class="field">
+				<label for="contactService">Select Service <span>*</span></label>
+				<InputSelect id="contactService" class="form-select" @bind-Value="contactModel.Service">
+					<option value="">Choose...</option>
+					<option value="Website Development">Website Development</option>
+					<option value="Digital Marketing">Digital Marketing</option>
+					<option value="Business Consulting">Business Consulting</option>
+				</InputSelect>
+				<ValidationMessage For="() => contactModel.Service" />
+			</div>
+
+			<div class="field checkbox-field">
+				<label>
+					<InputCheckbox class="form-check-input" @bind-Value="contactModel.AcceptTerms" />
+					I agree to terms and conditions <span>*</span>
+				</label>
+				<ValidationMessage For="() => contactModel.AcceptTerms" />
+			</div>
+
+			<button class="btn-submit btn-contact" type="submit">Submit Contact Form</button>
+			<p class="success-message">@contactSuccessMessage</p>
+		</EditForm>
+	</article>
+
+	<article class="form-card">
+		<h2>Course Registration Form</h2>
+
+		<EditForm Model="courseModel" OnValidSubmit="SubmitCourseForm">
+			<DataAnnotationsValidator />
+
+			<div class="field">
+				<label for="courseName">Full Name <span>*</span></label>
+				<InputText id="courseName" class="form-control" @bind-Value="courseModel.FullName" />
+				<ValidationMessage For="() => courseModel.FullName" />
+			</div>
+
+			<div class="field">
+				<label for="courseEmail">Email <span>*</span></label>
+				<InputText id="courseEmail" class="form-control" @bind-Value="courseModel.Email" />
+				<ValidationMessage For="() => courseModel.Email" />
+			</div>
+
+			<div class="field">
+				<label for="coursePhone">Phone Number <span>*</span></label>
+				<InputText id="coursePhone" class="form-control" @bind-Value="courseModel.PhoneNumber" />
+				<ValidationMessage For="() => courseModel.PhoneNumber" />
+			</div>
+
+			<div class="field">
+				<label for="courseSelect">Select Course <span>*</span></label>
+				<InputSelect id="courseSelect" class="form-select" @bind-Value="courseModel.Course">
+					<option value="">Choose...</option>
+					<option value="Frontend Foundation">Frontend Foundation</option>
+					<option value="Backend With .NET">Backend With .NET</option>
+					<option value="Fullstack Bootcamp">Fullstack Bootcamp</option>
+				</InputSelect>
+				<ValidationMessage For="() => courseModel.Course" />
+			</div>
+
+			<div class="field">
+				<label>Study Mode <span>*</span></label>
+				<InputRadioGroup TValue="string" @bind-Value="courseModel.StudyMode" class="radio-group">
+					<label><InputRadio TValue="string" Value="@("Online")" /> Online</label>
+					<label><InputRadio TValue="string" Value="@("Offline")" /> Offline</label>
+				</InputRadioGroup>
+				<ValidationMessage For="() => courseModel.StudyMode" />
+			</div>
+
+			<div class="field">
+				<label for="courseDate">Preferred Start Date <span>*</span></label>
+				<InputDate id="courseDate" class="form-control" @bind-Value="courseModel.PreferredStartDate" />
+				<ValidationMessage For="() => courseModel.PreferredStartDate" />
+			</div>
+
+			<div class="field">
+				<label for="courseNotes">Comments or Notes</label>
+				<InputTextArea id="courseNotes" class="form-control" @bind-Value="courseModel.Comments" rows="4" />
+			</div>
+
+			<div class="field checkbox-field">
+				<label>
+					<InputCheckbox class="form-check-input" @bind-Value="courseModel.AcceptTerms" />
+					I agree to terms and conditions <span>*</span>
+				</label>
+				<ValidationMessage For="() => courseModel.AcceptTerms" />
+			</div>
+
+			<button class="btn-submit btn-course" type="submit">Register</button>
+			<p class="success-message">@courseSuccessMessage</p>
+		</EditForm>
+	</article>
+</section>
+
+@code {
+	private CustomerContactModel contactModel = new();
+	private CourseRegistrationModel courseModel = new();
+
+	private string contactSuccessMessage = string.Empty;
+	private string courseSuccessMessage = string.Empty;
+
+	private void SubmitContactForm()
+	{
+		contactSuccessMessage = "Contact form submitted successfully.";
+		contactModel = new();
+	}
+
+	private void SubmitCourseForm()
+	{
+		courseSuccessMessage = "Course registration submitted successfully.";
+		courseModel = new();
+	}
+
+	public sealed class CustomerContactModel
+	{
+		[Required(ErrorMessage = "Full name is required.")]
+		[MinLength(3, ErrorMessage = "Full name must be at least 3 characters.")]
+		public string FullName { get; set; } = string.Empty;
+
+		[Required(ErrorMessage = "Email is required.")]
+		[EmailAddress(ErrorMessage = "Please enter a valid email address.")]
+		public string Email { get; set; } = string.Empty;
+
+		[Required(ErrorMessage = "Phone number is required.")]
+		[RegularExpression("^\\d{10,12}$", ErrorMessage = "Phone number must contain 10 to 12 digits.")]
+		public string PhoneNumber { get; set; } = string.Empty;
+
+		[OptionalMinLength(5, ErrorMessage = "Address must be at least 5 characters when provided.")]
+		public string? Address { get; set; }
+
+		[Required(ErrorMessage = "Message is required.")]
+		[MinLength(10, ErrorMessage = "Message must be at least 10 characters.")]
+		public string Message { get; set; } = string.Empty;
+
+		[Required(ErrorMessage = "Please select a service.")]
+		public string Service { get; set; } = string.Empty;
+
+		[Range(typeof(bool), "true", "true", ErrorMessage = "You must agree to terms and conditions.")]
+		public bool AcceptTerms { get; set; }
+	}
+
+	public sealed class CourseRegistrationModel
+	{
+		[Required(ErrorMessage = "Full name is required.")]
+		[MinLength(3, ErrorMessage = "Full name must be at least 3 characters.")]
+		public string FullName { get; set; } = string.Empty;
+
+		[Required(ErrorMessage = "Email is required.")]
+		[EmailAddress(ErrorMessage = "Please enter a valid email address.")]
+		public string Email { get; set; } = string.Empty;
+
+		[Required(ErrorMessage = "Phone number is required.")]
+		[RegularExpression("^\\d{10,12}$", ErrorMessage = "Phone number must contain 10 to 12 digits.")]
+		public string PhoneNumber { get; set; } = string.Empty;
+
+		[Required(ErrorMessage = "Please select a course.")]
+		public string Course { get; set; } = string.Empty;
+
+		[Required(ErrorMessage = "Please choose one study mode.")]
+		public string StudyMode { get; set; } = string.Empty;
+
+		[Required(ErrorMessage = "Please choose a preferred start date.")]
+		public DateTime? PreferredStartDate { get; set; }
+
+		public string? Comments { get; set; }
+
+		[Range(typeof(bool), "true", "true", ErrorMessage = "You must agree to terms and conditions.")]
+		public bool AcceptTerms { get; set; }
+	}
+
+	public sealed class OptionalMinLengthAttribute : ValidationAttribute
+	{
+		private readonly int _minLength;
+
+		public OptionalMinLengthAttribute(int minLength)
+		{
+			_minLength = minLength;
+		}
+
+		protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+		{
+			if (value is not string str || string.IsNullOrWhiteSpace(str))
+			{
+				return ValidationResult.Success;
+			}
+
+			return str.Trim().Length >= _minLength
+				? ValidationResult.Success
+				: new ValidationResult(ErrorMessage ?? $"Field must be at least {_minLength} characters when provided.");
+		}
+	}
+}
