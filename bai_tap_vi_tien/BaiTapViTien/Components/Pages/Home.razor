@@ -1,0 +1,88 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<section class="wallet-page">
+	<MyWallet
+		Balance="balance"
+		Transactions="transactions"
+		OnDepositClicked="OpenDepositModal"
+		OnWithdrawClicked="OpenWithdrawModal" />
+
+	<ModalWallet
+		IsOpen="isModalOpen"
+		Title="@GetModalTitle()"
+		SubmitButtonText="@GetSubmitButtonText()"
+		ErrorMessage="@modalError"
+		OnCancel="CloseModal"
+		OnSubmit="HandleWalletAction" />
+</section>
+
+@code {
+	private decimal balance = 2499.73m;
+	private bool isModalOpen;
+	private WalletAction currentAction = WalletAction.Deposit;
+	private string? modalError;
+
+	private readonly List<MyWallet.TransactionItem> transactions =
+	[
+		new() { IsDeposit = true, Amount = 500.00m, OccurredAt = DateTime.Now.AddDays(-1).AddHours(-2) },
+		new() { IsDeposit = false, Amount = 200.00m, OccurredAt = DateTime.Now.AddHours(-7) },
+		new() { IsDeposit = false, Amount = 200.00m, OccurredAt = DateTime.Now.AddHours(-4) },
+		new() { IsDeposit = true, Amount = 500.00m, OccurredAt = DateTime.Now.AddDays(-2).AddHours(-5) }
+	];
+
+	private void OpenDepositModal()
+	{
+		currentAction = WalletAction.Deposit;
+		modalError = null;
+		isModalOpen = true;
+	}
+
+	private void OpenWithdrawModal()
+	{
+		currentAction = WalletAction.Withdraw;
+		modalError = null;
+		isModalOpen = true;
+	}
+
+	private void CloseModal()
+	{
+		isModalOpen = false;
+		modalError = null;
+	}
+
+	private void HandleWalletAction(decimal amount)
+	{
+		modalError = null;
+
+		if (currentAction == WalletAction.Withdraw && amount > balance)
+		{
+			modalError = "Withdrawal amount cannot be greater than current balance.";
+			return;
+		}
+
+		var isDeposit = currentAction == WalletAction.Deposit;
+		balance += isDeposit ? amount : -amount;
+
+		transactions.Insert(0, new MyWallet.TransactionItem
+		{
+			IsDeposit = isDeposit,
+			Amount = amount,
+			OccurredAt = DateTime.Now
+		});
+
+		isModalOpen = false;
+	}
+
+	private string GetModalTitle() => currentAction == WalletAction.Deposit ? "Deposit Money" : "Withdraw Money";
+
+	private string GetSubmitButtonText() => currentAction == WalletAction.Deposit ? "Deposit" : "Withdraw";
+
+	private enum WalletAction
+	{
+		Deposit,
+		Withdraw
+	}
+}

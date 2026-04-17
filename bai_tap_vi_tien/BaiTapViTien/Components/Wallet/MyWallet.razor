@@ -1,0 +1,57 @@
+@using System.Globalization
+
+<div class="wallet-card shadow-lg">
+    <h2 class="wallet-title">My Wallet</h2>
+    <p class="wallet-balance">@Balance.ToString("C2", CultureInfo.GetCultureInfo("en-US"))</p>
+    <p class="wallet-balance-label">Total balance</p>
+
+    <div class="d-flex justify-content-center gap-2 mb-4">
+        <button type="button" class="btn btn-success px-3" @onclick="OnDepositClicked">Deposit</button>
+        <button type="button" class="btn btn-danger px-3" @onclick="OnWithdrawClicked">Withdraw</button>
+    </div>
+
+    <h3 class="history-title">Transaction History</h3>
+
+    <table class="table table-sm history-table mb-0">
+        <tbody>
+            @if (Transactions.Count == 0)
+            {
+                <tr>
+                    <td colspan="3" class="text-center py-3">No transactions</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var transaction in Transactions)
+                {
+                    <tr class="@(transaction.IsDeposit ? "deposit-row" : "withdraw-row")">
+                        <td>@(transaction.IsDeposit ? "Deposit" : "Withdraw")</td>
+                        <td>@transaction.Amount.ToString("C2", CultureInfo.GetCultureInfo("en-US"))</td>
+                        <td class="text-end">@transaction.OccurredAt.ToString("dd MMM h:mmtt")</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public decimal Balance { get; set; }
+
+    [Parameter, EditorRequired]
+    public IReadOnlyList<TransactionItem> Transactions { get; set; } = [];
+
+    [Parameter]
+    public EventCallback OnDepositClicked { get; set; }
+
+    [Parameter]
+    public EventCallback OnWithdrawClicked { get; set; }
+
+    public class TransactionItem
+    {
+        public required bool IsDeposit { get; init; }
+        public required decimal Amount { get; init; }
+        public required DateTime OccurredAt { get; init; }
+    }
+}

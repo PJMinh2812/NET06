@@ -1,0 +1,80 @@
+@using System.ComponentModel.DataAnnotations
+
+@if (IsOpen)
+{
+    <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Title</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="Cancel"></button>
+                </div>
+
+                <EditForm Model="formModel" OnValidSubmit="SubmitAmount">
+                    <DataAnnotationsValidator />
+
+                    <div class="modal-body">
+                        <label for="amountInput" class="form-label">Amount</label>
+                        <InputNumber id="amountInput" class="form-control" @bind-Value="formModel.Amount" step="0.01" />
+                        <ValidationMessage For="() => formModel.Amount" />
+
+                        @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+                        {
+                            <p class="text-danger mt-2 mb-0">@ErrorMessage</p>
+                        }
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="Cancel">Close</button>
+                        <button type="submit" class="btn btn-primary">@SubmitButtonText</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    private bool wasOpen;
+    private AmountFormModel formModel = new();
+
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public string SubmitButtonText { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? ErrorMessage { get; set; }
+
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+
+    [Parameter]
+    public EventCallback<decimal> OnSubmit { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (IsOpen && !wasOpen)
+        {
+            formModel = new AmountFormModel();
+        }
+
+        wasOpen = IsOpen;
+    }
+
+    private Task Cancel() => OnCancel.InvokeAsync();
+
+    private Task SubmitAmount() => OnSubmit.InvokeAsync(formModel.Amount!.Value);
+
+    private sealed class AmountFormModel
+    {
+        [Required(ErrorMessage = "Please enter amount")]
+        [Range(typeof(decimal), "0.01", "79228162514264337593543950335", ErrorMessage = "Amount must be greater than 0")]
+        public decimal? Amount { get; set; }
+    }
+}
